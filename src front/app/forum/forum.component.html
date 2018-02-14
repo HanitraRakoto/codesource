@@ -1,0 +1,64 @@
+<section class="engine"><a href="https://mobirise.ws/e">best website creation software</a></section>
+<section class="testimonials4 cid-qITTdMOgZD" id="testimonials4-y">
+    
+    <div class="container">
+      <h2 class="pb-3 mbr-fonts-style mbr-white align-center display-2">
+          <br>COMMENT VOUS TROUVEZ NOTRE APPS?</h2>
+      <h3 class="mbr-section-subtitle mbr-light pb-3 mbr-fonts-style mbr-white align-center display-5"></h3>
+      <div class="col-md-10 testimonials-container"> 
+        
+  
+        
+      <div class="testimonials-item">
+          <div *ngFor="let commentaire of commentaires" class="user row">
+            <div class="col-lg-3 col-md-4">
+              <div class="user_image">
+                <img src="assets/images/{{commentaire.photo}}">
+              </div>
+            </div>
+            <div class="testimonials-caption col-lg-9 col-md-8">
+              <div class="user_text ">
+                <p class="mbr-fonts-style  display-7">
+                   <em>"{{commentaire.valeur}}"</em>
+                </p>
+              </div>
+              <div class="user_name mbr-bold mbr-fonts-style align-left pt-3 display-7">
+                   {{commentaire.nomJoueur}}
+              </div>
+              <!--<div class="user_desk mbr-light mbr-fonts-style align-left pt-2 display-7">
+                   DESIGNER
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="mbr-section form1 cid-qITTGEUVOM" id="form1-z">
+  
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="title col-12 col-lg-8">
+                  <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2"></h2>
+                  <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">ECRIVEZ VOTRE COMMENTAIRE ICI</h3>
+              </div>
+          </div>
+      </div>
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="media-container-column col-lg-8" data-form-type="formoid">
+                    <form class="mbr-form" method="post">
+                        <div class="row row-sm-offset">
+                        </div>
+                        <div class="form-group" data-for="message">
+                            <label class="form-control-label mbr-fonts-style display-7" for="message-form1-z">Message</label>
+                            <textarea type="text" [(ngModel)]="commentaire" class="form-control" name="message" rows="7" data-form-field="Message" id="message-form1-z"></textarea>
+                        </div>
+            
+                        <span class="input-group-btn"><button (click)="insertCommentaire()" type="submit" class="btn btn-primary btn-form display-4">SEND</button></span>
+                    </form>
+              </div>
+          </div>
+      </div>
+  </section>

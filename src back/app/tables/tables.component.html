@@ -1,0 +1,99 @@
+<div class="container">
+
+  <!-- CONTENT -->
+<div class="row">
+<div class="col-sm-12 col-lg-12">
+  <h4><strong>Liste des niveaux</strong></h4>
+    <table class="display">
+        <thead>
+          <tr>
+            <th>Nom niveau</th>
+            <th>Point Quiz</th>
+            <th>Deblocage</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let niveau of niveaux" class="odd">
+            <td>{{niveau.nom}}</td>
+            <td>{{niveau.pointQuiz}}</td>
+            <td>{{niveau.deblocage}}</td>
+            <td class="center"><button routerLink="/formmodifniveau/{{niveau.id}}" class="btn-primary" type="button">Modifier</button></td>
+            <td class="center"><button (click)="deleteNiveau(niveau.id)" style="background-color:red; color:white" type="button">Supprimer</button></td>
+          </tr>
+        </tbody>
+       </table><!--/END First Table -->
+   <br>
+   <!--SECOND Table -->
+
+<h4><strong>Liste des quiz</strong></h4>
+
+<table class="display" id="dt1">
+    <thead>
+      <tr>
+        <th>Id Niveau</th>
+        <th>Photo</th>
+        <th>Reponse</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let quiz of quizz" class="odd gradeX">
+        <td>{{quiz.idNiveau}}</td>
+        <td><img src="assets/images/{{quiz.photo}}" width="50px"></td>
+        <td>{{quiz.reponse}}</td>
+        <td class="center"><button routerLink="/formmodifquiz/{{quiz.id}}" class="btn-primary" type="button">Modifier</button></td>
+        <td class="center"><button (click)="deleteQuiz(quiz.id)" style="background-color:red; color:white" type="button">Supprimer</button></td>
+      </tr>
+    </tbody>
+  </table><!--/END SECOND TABLE -->
+
+</div><!--/span12 -->
+  </div><!-- /row -->
+ </div> <!-- /container -->
+  <br>
+
+  <div class="container">
+    <h4><strong>Classement des joueurs</strong></h4>
+  <div class="row">
+    <div class="col-sm-3 col-lg-3">
+    </div><!-- /span3 -->	
+    <div class="col-sm-6 col-lg-6">
+      <div id="hosting-table">
+    <div class="table_style4"> 
+      <div class="column">
+        <ul>
+          <li><strong>Classement</strong></li>
+          <li class="header_row">
+            <h1>Meilleurs joueurs</h1>
+          </li>
+          <table class="display" id="dt1">
+            <thead>
+              <tr>
+                <th>Id sauvegarde</th>
+                <th>Nom joueur</th>
+                <th>Points joueur</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let classement of classements" class="odd gradeX">
+                <td>{{classement.idSauvegarde}}</td>
+                <td>{{classement.nom}}</td>
+                <td>{{classement.point}}</td>
+              </tr>
+            </tbody>
+          </table><!--/END SECOND TABLE -->
+
+        </ul>
+      </div><!--/ column-->
+    </div><!--/ Table Style-->
+  </div><!--/ Hosting Table-->	
+    </div><!-- /span3 -->	
+    <div class="col-sm-3 col-lg-3">
+    </div><!-- /span3 -->	
+
+  </div><!-- /row -->
+</div><!-- /container -->
+<br>

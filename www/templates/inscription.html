@@ -1,0 +1,20 @@
+<ion-view view-title="Inscription">
+  <ion-content>
+    <h1>Inscrivez-vous</h1>
+    <form ng-submit="signIn()">
+      <div class="list">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Pseudo</span>
+            <input type="text" ng-model="signIn.pseudo" placeholder="Pseudo">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Mot De Passe</span>
+            <input type="password" ng-model="signIn.mdp" placeholder="Mot De Passe">
+          </label>
+          <label class="item">
+            <button class="button button-block button-royal" type="submit">Sign In</button>
+          </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

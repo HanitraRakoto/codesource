@@ -1,0 +1,19 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar style="background-color:blueviolet">
+    <a href="#/app/jeu"><button class="button icon-left ion-chevron-left button-clear button-dark"></button></a>
+    <div class="h1 title">Niveau</div>
+    <button class="button button-clear button-positive" style="color:white">Pt:{{points}}</button>
+  </ion-header-bar>
+
+  <ion-content>
+    
+      <div class="list">
+          <button ng-repeat="niveau in niveaux" ng-disabled="niveau{{niveau.id}}" ng-click="logos(niveau.id,niveau.pointQuiz)" class="button-full item item-avatar" style="text-align:left" href="#/app/listelogos/{{niveau.id}}/{{niveau.pointQuiz}}">
+            <img src="img/{{niveau.icon}}">
+            <h2>{{niveau.nom}}</h2>
+            <p>{{niveau.deblocage}} quiz pour debloquer</p>
+          </button>
+      </div>
+    
+  </ion-content>
+</ion-view>

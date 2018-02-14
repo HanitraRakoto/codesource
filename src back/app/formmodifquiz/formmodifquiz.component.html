@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+<div class="col-sm-3 col-lg-3">
+</div>
+    <div class="col-sm-6 col-lg-6">
+      <div id="register-wraper">
+          <form id="register-form" class="form" method="post">
+              <legend>Modification Quiz</legend>
+      
+              <div *ngFor="let quiz of quizz" class="body">
+                <!-- first name -->
+              <label for="name">Niveau</label>
+              {{quiz.idNiveau}}
+              <!--select [(ngModel)]="idNiveau" class="select-huge" tabindex="-1" name="idNiveau">
+                
+                <option value="1">Niveau 1</option>
+                <option value="2">Niveau 2</option>
+                <option value="3">Niveau 3</option>
+                
+              </select>-->
+              <input [(ngModel)]="idNiveau" name="idNiveau" class="input-huge" type="text">
+              <br/>
+                <!-- last name -->
+              <label for="surname">Photo</label>
+              {{quiz.photo}}
+              <input [(ngModel)]="photo" name="photo" class="input-huge" type="text">
+                <!-- username -->
+                <label>Reponse</label>
+                {{quiz.reponse}}
+                <input [(ngModel)]="reponse" name="reponse" class="input-huge" type="text">
+              </div>
+          
+              <div class="footer">
+                  <button (click)="updateQuiz()" type="submit" class="btn btn-success">Modification</button>
+              </div>
+          </form>
+      </div>
+    </div>
+<div class="col-sm-3 col-lg-3">
+</div>
+  </div>
+</div>

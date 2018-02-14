@@ -1,0 +1,20 @@
+<ion-view hide-nav-bar="true">
+        <ion-header-bar style="background-color:blueviolet">
+          <a href="#/app/jeu"><button class="button icon-left ion-chevron-left button-clear button-dark"></button></a>
+          <div class="h1 title">Classements</div>
+        </ion-header-bar>
+      
+        <ion-content>
+          
+            <ul class="list">
+                <li ng-repeat="classement in classements" class="item">
+                    <div class="row">
+                        <div class="col">{{classement.nom}}</div>
+                        <div class="col" style="text-align:right; color:rgb(3, 194, 3)">{{classement.point}} points</div>
+                    </div>
+                </li>
+            </ul>
+          
+        </ion-content>
+      </ion-view>
+      

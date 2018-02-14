@@ -1,0 +1,19 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar style="background-color:blueviolet">
+      <a href="#/app/niveau"><button class="button icon-left ion-chevron-left button-clear button-dark"></button></a>
+      <div class="h1 title">Niveau {{idNiveau}}</div>
+      <button class="button button-clear button-positive" style="color:white">Pt:{{points}}</button>
+  </ion-header-bar>
+
+  <ion-content padding>
+      <div class="list">
+        <div ng-repeat="listeQuiz in listeQuizz" class="item item-thumbnail-left">
+            <img src="img/{{listeQuiz.photo}}">
+            <p>(1 points)</p>
+            <a href="#/app/logo/{{listeQuiz.id}}/{{idNiveau}}/{{idDebut}}/{{idFin}}/{{pointQuiz}}"><p align="right">
+            <button class="button button-outline button-balanced">Jouer</button>
+            </p></a>
+        </div>
+      </div>
+  </ion-content>
+</ion-view>

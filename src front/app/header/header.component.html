@@ -1,0 +1,88 @@
+<section class="menu cid-qITJECuZOs" once="menu" id="menu1-h">
+  
+      <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <div class="hamburger">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </div>
+          </button>
+          <div class="menu-logo">
+              <div class="navbar-brand">
+                  <span class="navbar-logo">
+                      <a routerLink="/index">
+                           <img src="assets/images/logo-300x300.png" alt="Mobirise" title="" style="height: 3.8rem;">
+                      </a>
+                  </span>
+                  <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-4" routerLink="/index"><span class="mbri-features mbr-iconfont mbr-iconfont-btn"></span>LOGO QUIZ</a></span>
+              </div>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item">
+                  </li><li class="nav-item">
+                      <a class="nav-link link text-white display-4" routerLink="/index"><span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
+                          Home &nbsp;</a>
+                  </li><li class="nav-item"><a class="nav-link link text-white display-4" routerLink="/game"><span class="socicon socicon-android mbr-iconfont mbr-iconfont-btn"></span>Game &nbsp;&nbsp;</a></li><li class="nav-item"><a class="nav-link link text-white display-4" onclick="document.getElementById('id01').style.display='block'"><span class="mbrib-chat mbr-iconfont mbr-iconfont-btn"></span>Forums</a></li><li class="nav-item"><a class="nav-link link text-white display-4" routerLink="/contact"><span class="socicon socicon-viber mbr-iconfont mbr-iconfont-btn"></span>Contact</a></li>
+                  </ul>
+              
+          </div>
+      </nav>
+    
+    
+    <!-- Modal connexion -->
+     <div id="id01" class="w3-modal" style="display:none">
+      <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+  
+        <div class="w3-center"><br>
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+        <h4>Connectez - vous</h4>
+        </div>
+  
+        <form class="w3-container"  method="post">
+        <div class="w3-section">
+          <label><b>Nom d'utilisateur</b></label>
+          <input [(ngModel)]="pseudo" class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Entrer nom d'utilisateur" name="prenom" required>
+          <label><b>Mot de passe</b></label>
+          <input [(ngModel)]="mdp" class="w3-input w3-border" type="password" placeholder="Entrer mot de passe" name="mdp" required>
+          <button (click)="checkLogin()" class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Se connecter</button>
+        </div>
+        </form>
+  
+        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+        <span class="w3-right w3-padding w3-hide-small">Pas membre <button onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-blue">S'incrire?</button></span>
+        </div>
+  
+      </div>
+      </div>
+      
+      <!-- Modal inscription -->
+     <div id="id02" class="w3-modal" style="display:none">
+      <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+  
+        <div class="w3-center"><br>
+        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+        <h4>Inscrivez - vous</h4>
+        </div>
+  
+        <form class="w3-container" method="post">
+        <div class="w3-section">
+          <label><b>Nom d'utilisateur</b></label>
+          <input [(ngModel)]="nom" class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Entrer nom d'utilisateur" name="nom" required>
+          <label><b>Mot de passe</b></label>
+          <input [(ngModel)]="motDePasse" class="w3-input w3-border" type="password" placeholder="Entrer mot de passe" name="mdp" required>
+          <button (click)="signIn()" class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Se connecter</button>
+        </div>
+        </form>
+  
+        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+        <button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+        </div>
+  
+      </div>
+      </div>
+    
+    
+  </section>

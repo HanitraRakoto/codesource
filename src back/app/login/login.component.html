@@ -1,0 +1,23 @@
+<div class="container" style="background:url('assets/images/bg.jpg') no-repeat center center; height:700px;">
+  <div class="row">
+ <div class="col-lg-offset-4 col-lg-4" style="margin-top:100px">
+   <div class="block-unit" style="text-align:center; padding:8px 8px 8px 8px;">
+     <img src="assets/images/logoQuiz.png" width="250" alt="" class="img-circle">
+     <br>
+     <br>
+    <form class="cmxform" id="signupForm" method="get" action="">
+      <fieldset>
+        <p>
+          <input [(ngModel)]="nom" id="username" name="nomUtil" type="text" placeholder="Nom d'utilisateur">
+          <input [(ngModel)]="motDePasse" id="password" name="mdp" type="password" placeholder="Mot de passe">
+        </p>
+          <input (click)="checkLogin()" class="submit btn-success btn btn-large" type="submit" value="Login">
+      </fieldset>
+    </form>
+   </div>
+
+ </div>
+
+
+  </div>
+</div>

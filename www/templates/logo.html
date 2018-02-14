@@ -1,0 +1,42 @@
+<ion-view hide-nav-bar="true">
+
+  <ion-header-bar style="background-color:blueviolet">
+    <a href="#/app/listelogos/{{idQuiz}}/{{pointQuiz}}"><button class="button icon-left ion-chevron-left button-clear button-dark"></button></a>
+    <div class="h1 title">Devinette {{idQuiz}}</div>
+    <button class="button button-clear button-positive" style="color:white">Pt:{{points}}</button>
+  </ion-header-bar>
+
+  <ion-content>
+    <ion-item ng-repeat="quiz in quizz">
+      
+      <div class="row">
+        <div class="col">
+          <a href="/#/app/logo/{{idQuiz-1}}/{{idNiveau}}/{{idDebut}}/{{idFin}}/{{pointQuiz}}" ><button class="button icon ion-android-arrow-dropleft" style="float: left"></button></a>
+        </div>
+        <div class="col col-50"><div class="imagess" align="center"><img src="img/{{quiz.photo}}" width="100%"></div></div>
+        <div class="col">
+          <a href="/#/app/logo/{{idQuiz+1}}/{{idNiveau}}/{{idDebut}}/{{idFin}}/{{pointQuiz}}" ><button class="button icon ion-android-arrow-dropright" style="float: right"></button></a>
+        </div>
+      </div>
+      <br/>
+      <form ng-submit="verifReponse(reponse,pointQuiz,idQuiz,idNiveau,idDebut,idFin,pointQuiz)">
+      <!--<div class="row">
+          <label class="item item-input" ng-repeat="tableau in tableaux">
+            <input type="text" placeholder="">
+          </label>
+      </div>-->
+
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" ng-model="verifReponse.reponse" ng-disabled="input" placeholder="Marque du logo">
+        </label>
+      </div>
+      <button class="button button-block button-royal" ng-disabled="bouton" type="submit">
+        Valider
+      </button>
+      <br />
+      
+    </ion-item>
+    
+  </ion-content>
+</ion-view>
