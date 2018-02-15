@@ -125,18 +125,24 @@ angular.module('starter.controllers', [])
         });
         alertPopup.then(function(res) {
           
-          $http.get("https://quizlogo.herokuapp.com/blocage/save?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz).then(function(response){    
-            //insert table blocage
+            console.log('count avant:',$scope.count);
             $scope.count ++;
+            console.log('count apres:',$scope.count);
             if ($scope.count == 5 || $scope.count == 10 || $scope.count == 15 || $scope.count == 20 || $scope.count == 25) {
               var alertPopup = $ionicPopup.alert({
                 title: 'Félicitation !!',
                 template: 'Vous avez débloqué le niveau suivant.'
               });
               alertPopup.then(function(res) {
+                $http.get("https://quizlogo.herokuapp.com/blocage/save?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz).then(function(response){    
+                  //insert table blocage
+                  
+                })
               });
             }
-          })
+
+
+          
 
           if ($idQuiz+1 < $idDebut || $idQuiz+1 > $idFin) {
             $state.go('app.listelogos', { id: $idNiveau });
@@ -263,22 +269,22 @@ angular.module('starter.controllers', [])
         //$scope.niveau.i = true;
       }
     }*/
-    if ($scope.count <= 5) {
+    if ($scope.count < 5) {
       $scope.niveau2 = true;
     }
-    if ($scope.count <= 10) {
+    if ($scope.count < 10) {
       console.log('niveau3');
       $scope.niveau3 = true;
     }
-    if ($scope.count <= 15) {
+    if ($scope.count < 15) {
       console.log('niveau4');
       $scope.niveau4 = true;
     }
-    if ($scope.count <= 20) {
+    if ($scope.count < 20) {
       console.log('niveau5');
       $scope.niveau5 = true;
     }
-    if ($scope.count <= 25) {
+    if ($scope.count < 25) {
       console.log('niveau6');
       $scope.niveau6 = true;
     }
