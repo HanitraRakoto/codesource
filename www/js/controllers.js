@@ -57,6 +57,9 @@ angular.module('starter.controllers', [])
           $http.get("https://quizlogo.herokuapp.com/sauvegarde/save?idJoueur="+$scope.idJoueur+"&idNiveau=1&idQuiz=1").then(function(response){
             $scope.points = 0;
             $scope.count = 0;
+            $http.get("https://quizlogo.herokuapp.com/classement/save?idJoueur="+$scope.idJoueur).then(function(response){
+              
+            })
             $state.go('app.niveau');
           })
         }
@@ -75,6 +78,7 @@ angular.module('starter.controllers', [])
         $scope.idJoueur = $scope.users[0].id;
         //$scope.points = $scope.users[0].argent;
         console.log('idJoueur', $scope.idJoueur);
+        // otrany tsy ilaina tsony
         $http.get("https://quizlogo.herokuapp.com/sauvegarde/findByJoueur?idJoueur="+$scope.idJoueur).then(function(response){ 
           $scope.sauvegarde = response.data;
           $scope.points = $scope.sauvegarde.point;
@@ -128,21 +132,19 @@ angular.module('starter.controllers', [])
             console.log('count avant:',$scope.count);
             $scope.count ++;
             console.log('count apres:',$scope.count);
+            $http.get("https://quizlogo.herokuapp.com/blocage/save?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz).then(function(response){    
+              //insert table blocage
+            })
             if ($scope.count == 5 || $scope.count == 10 || $scope.count == 15 || $scope.count == 20 || $scope.count == 25) {
               var alertPopup = $ionicPopup.alert({
                 title: 'Félicitation !!',
                 template: 'Vous avez débloqué le niveau suivant.'
               });
               alertPopup.then(function(res) {
-                $http.get("https://quizlogo.herokuapp.com/blocage/save?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz).then(function(response){    
-                  //insert table blocage
-                  
-                })
+                
               });
             }
 
-
-          
 
           if ($idQuiz+1 < $idDebut || $idQuiz+1 > $idFin) {
             $state.go('app.listelogos', { id: $idNiveau });
@@ -263,12 +265,6 @@ angular.module('starter.controllers', [])
   $http.get("https://quizlogo.herokuapp.com/niveau/listeNiveau").then(function(response){ 
     $scope.niveaux = response.data;
 
-    /*for (var i = 1; i < response.data.length; i++) {
-      if ($scope.count <= $scope.niveaux[i].deblocage) {
-        console.log('niveau', i);
-        //$scope.niveau.i = true;
-      }
-    }*/
     if ($scope.count < 5) {
       $scope.niveau2 = true;
     }

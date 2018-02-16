@@ -340,3 +340,8 @@ git : https://git.heroku.com/quizlogo.git
 //Git hub
 user name : HanitraRakoto
 mdp : Hanitra22Jerry10
+
+//modification github
+git add .
+git commit -m "Add existing file"
+git push origin master
