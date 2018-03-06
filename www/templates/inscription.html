@@ -1,20 +1,31 @@
 <ion-view view-title="Inscription">
   <ion-content>
     <h1>Inscrivez-vous</h1>
-    <form ng-submit="signIn()">
+    <form ng-submit="signIn(filename)">
       <div class="list">
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Pseudo</span>
-            <input type="text" ng-model="signIn.pseudo" placeholder="Pseudo">
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Mot De Passe</span>
-            <input type="password" ng-model="signIn.mdp" placeholder="Mot De Passe">
-          </label>
-          <label class="item">
-            <button class="button button-block button-royal" type="submit">Sign In</button>
-          </label>
+        <!--<input ng-show="false" type="file" id="upload">-->
+        
+        <a class="item item-avatar">
+          <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+          <!--<h2>Prendre photo</h2>-->
+          <!--<p><button ng-click="uploadPhoto()">Modifier photo</button></p>-->
+          <p><button ng-click="upload()">Modifier photo</button></p>
+        </a>
+        <!--<progress value="0" max="100" id="uploadProgress">0%</progress>-->
+        <input ng-show="false" type="file" value="upload" id="uploadButton">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Pseudo</span>
+          <input type="text" ng-model="signIn.pseudo" placeholder="Pseudo">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Mot De Passe</span>
+          <input type="password" ng-model="signIn.mdp" placeholder="Mot De Passe">
+        </label>
+        <label class="item">
+          <button class="button button-block button-royal" type="submit">Sign In</button>
+        </label>
       </div>
     </form>
+
   </ion-content>
 </ion-view>

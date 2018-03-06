@@ -11,12 +11,13 @@ import { FormmodifquizComponent } from './formmodifquiz/formmodifquiz.component'
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'tables', component: TablesComponent },
-  { path: 'forminsertniveau', component: ForminsertniveauComponent },
-  { path: 'forminsertquiz', component: ForminsertquizComponent },
+  { path: 'tables/:idAdmin', component: TablesComponent },
+  { path: 'forminsertniveau/:idAdmin', component: ForminsertniveauComponent },
+  { path: 'forminsertquiz/:idAdmin', component: ForminsertquizComponent },
   { path: 'formmodifniveau', component: FormmodifniveauComponent },
-  { path: 'formmodifniveau/:id', component: FormmodifniveauComponent },
+  { path: 'formmodifniveau/:id/:idAdmin', component: FormmodifniveauComponent },
   { path: 'formmodifquiz', component: FormmodifquizComponent },
-  { path: 'formmodifquiz/:id', component: FormmodifquizComponent }
+  { path: 'formmodifquiz/:id/:idAdmin', component: FormmodifquizComponent }
 ];
 
 @NgModule({

@@ -7,8 +7,8 @@ export class ClassementService {
         
     }
 
-    public listeClassement(){
-        const url = "https://quizlogo.herokuapp.com/classement/classement"
+    public listeClassement(idAdmin: string){
+        const url = "https://quizlogo.herokuapp.com/classement/classement?key="+idAdmin
 
         return this.http.get(url)
         .toPromise()

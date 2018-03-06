@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $http, $ionicPopup) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $http, $ionicPopup, $ionicLoading) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -48,29 +48,38 @@ angular.module('starter.controllers', [])
     $state.go('app.connection');
   };
 
-  $scope.signIn = function() {
-    $http.get("https://quizlogo.herokuapp.com/joueur/save?pseudo="+$scope.signIn.pseudo+"&mdp="+$scope.signIn.mdp).then(function(response){    
+  $scope.signIn = function($filename) {
+    $ionicLoading.show();
+    $http.get("https://quizlogo.herokuapp.com/joueur/save?pseudo="+$scope.signIn.pseudo+"&mdp="+$scope.signIn.mdp+"&photo="+$filename).then(function(response){
+      console.log('insert joueur');
       $http.get("https://quizlogo.herokuapp.com/joueur/find?pseudo="+$scope.signIn.pseudo+"&mdp="+$scope.signIn.mdp).then(function(response){
         if (response.data.length != 0) {
+          console.log('find joueur');
           $scope.users = response.data;
           $scope.idJoueur = $scope.users[0].id;
-          $http.get("https://quizlogo.herokuapp.com/sauvegarde/save?idJoueur="+$scope.idJoueur+"&idNiveau=1&idQuiz=1").then(function(response){
+          $http.get("https://quizlogo.herokuapp.com/sauvegarde/save?idJoueur="+$scope.idJoueur+"&idNiveau=1&idQuiz=1&key="+$scope.idJoueur).then(function(response){
+            console.log('insert sauvegarde');
             $scope.points = 0;
             $scope.count = 0;
-            $http.get("https://quizlogo.herokuapp.com/classement/save?idJoueur="+$scope.idJoueur).then(function(response){
-              
+            $http.get("https://quizlogo.herokuapp.com/classement/save?idJoueur="+$scope.idJoueur+"&key="+$scope.idJoueur).then(function(response){
+              console.log('insert classement');
             })
+            $ionicLoading.hide();
             $state.go('app.niveau');
           })
         }
         else {
+          $ionicLoading.hide();
           $state.go('app.inscription');
         }
       })
     })
+    console.log('pseudo',$scope.signIn.pseudo)
+    console.log('mdp', $scope.signIn.mdp);
   };
 
   $scope.logIn = function() {
+    $ionicLoading.show();
     $http.get("https://quizlogo.herokuapp.com/joueur/find?pseudo="+$scope.logIn.pseudo+"&mdp="+$scope.logIn.mdp).then(function(response){
       console.log('Doing login', response.data.length);
       if (response.data.length != 0) {
@@ -79,7 +88,7 @@ angular.module('starter.controllers', [])
         //$scope.points = $scope.users[0].argent;
         console.log('idJoueur', $scope.idJoueur);
         // otrany tsy ilaina tsony
-        $http.get("https://quizlogo.herokuapp.com/sauvegarde/findByJoueur?idJoueur="+$scope.idJoueur).then(function(response){ 
+        $http.get("https://quizlogo.herokuapp.com/sauvegarde/findByJoueur?idJoueur="+$scope.idJoueur+"&key="+$scope.idJoueur).then(function(response){ 
           $scope.sauvegarde = response.data;
           $scope.points = $scope.sauvegarde.point;
           $scope.niveauJoueur = $scope.sauvegarde.idNiveau;
@@ -89,10 +98,9 @@ angular.module('starter.controllers', [])
           console.log('quizJoueur', $scope.quizJoueur);
 
           // Deblocage
-          $http.get("https://quizlogo.herokuapp.com/blocage/deblocage?idJoueur="+$scope.idJoueur).then(function(response){ 
-            //console.log('tafiditra');
-            //console.log('count', response.data.length);
+          $http.get("https://quizlogo.herokuapp.com/blocage/deblocage?idJoueur="+$scope.idJoueur+"&key="+$scope.idJoueur).then(function(response){ 
             $scope.count = response.data.length;
+            $ionicLoading.hide();
             $state.go('app.niveau');
           })
           
@@ -100,6 +108,7 @@ angular.module('starter.controllers', [])
         
       }
       else {
+        $ionicLoading.hide();
         $state.go('app.connection');
       }
     })
@@ -107,22 +116,31 @@ angular.module('starter.controllers', [])
   };
 
   $scope.logos = function($id,$pointQuiz) {
-    /*console.log('id', $id);
-    console.log('pointQuiz', $pointQuiz);*/
     $state.go('app.listelogos', { id: $id, pointQuiz: $pointQuiz });
   };
 
+  $scope.commenter = function() {
+    $ionicLoading.show();
+    $http.get("https://quizlogo.herokuapp.com/commentaire/save?idJoueur="+$scope.idJoueur+"&commentaire="+$scope.commenter.valeur+"&key="+$scope.idJoueur).then(function(response){    
+      //console.log('Commentaire :', $scope.commenter.valeur);
+      $ionicLoading.hide();
+      window.location.reload();
+    })
+  };
+
   $scope.verifReponse = function($reponse,$pointQuiz,$idQuiz,$idNiveau,$idDebut,$idFin,$pointQuiz) {
-    console.log('Reponse base', $reponse);
+    /*console.log('Reponse base', $reponse);
     console.log('Reponse joueur', $scope.verifReponse.reponse);
     console.log('idJoueur', $scope.idJoueur);
     console.log('Points', $scope.points);
     console.log('PointQuiz', $pointQuiz);
     console.log('idQuiz', $idQuiz);
-    console.log('idNiveau', $idNiveau);
+    console.log('idNiveau', $idNiveau);*/
+    $ionicLoading.show();
     if ($reponse.toLowerCase() == $scope.verifReponse.reponse.toLowerCase()){
       $scope.points = $scope.points + $pointQuiz;
-      $http.get("https://quizlogo.herokuapp.com/sauvegarde/update?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz+"&point="+$scope.points).then(function(response){    
+      $http.get("https://quizlogo.herokuapp.com/sauvegarde/update?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz+"&point="+$scope.points+"&key="+$scope.idJoueur).then(function(response){    
+        $ionicLoading.hide();
         var alertPopup = $ionicPopup.alert({
           title: 'Yes !!',
           template: 'Vous avez gagner '+$pointQuiz+' points.'
@@ -132,7 +150,7 @@ angular.module('starter.controllers', [])
             console.log('count avant:',$scope.count);
             $scope.count ++;
             console.log('count apres:',$scope.count);
-            $http.get("https://quizlogo.herokuapp.com/blocage/save?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz).then(function(response){    
+            $http.get("https://quizlogo.herokuapp.com/blocage/save?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz+"&key="+$scope.idJoueur).then(function(response){    
               //insert table blocage
             })
             if ($scope.count == 5 || $scope.count == 10 || $scope.count == 15 || $scope.count == 20 || $scope.count == 25) {
@@ -144,7 +162,6 @@ angular.module('starter.controllers', [])
                 
               });
             }
-
 
           if ($idQuiz+1 < $idDebut || $idQuiz+1 > $idFin) {
             $state.go('app.listelogos', { id: $idNiveau });
@@ -158,7 +175,8 @@ angular.module('starter.controllers', [])
     }
     else {
       $scope.points = $scope.points - 1;
-      $http.get("https://quizlogo.herokuapp.com/sauvegarde/update?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz+"&point="+$scope.points).then(function(response){    
+      $http.get("https://quizlogo.herokuapp.com/sauvegarde/update?idJoueur="+$scope.idJoueur+"&idNiveau="+$idNiveau+"&idQuiz="+$idQuiz+"&point="+$scope.points+"&key="+$scope.idJoueur).then(function(response){    
+        $ionicLoading.hide();
         var alertPopup = $ionicPopup.alert({
           title: 'Oh non !!',
           template: 'Mauvaise reponse.'
@@ -170,18 +188,111 @@ angular.module('starter.controllers', [])
   };
 
 
-  //Popup
-  $scope.showAlert = function() {
-    
-        var alertPopup = $ionicPopup.alert({
-           title: 'Title',
-           template: 'Alert message'
-        });
+  $scope.takePhoto = function () {
+    var options = {
+      quality: 75,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      targetWidth: 300,
+      targetHeight: 300,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false
+  };
+
+      $cordovaCamera.getPicture(options).then(function (imageData) {
+          $scope.imgURI = "data:image/jpeg;base64," + imageData;
+      }, function (err) {
+          // An error occured. Show a message to the user
+      });
+  }
   
-        alertPopup.then(function(res) {
-           // Custom functionality....
-        });
-     };
+  $scope.choosePhoto = function () {
+    var options = {
+      quality: 75,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      targetWidth: 300,
+      targetHeight: 300,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false
+  };
+
+      $cordovaCamera.getPicture(options).then(function (imageData) {
+          $scope.imgURI = "data:image/jpeg;base64," + imageData;
+      }, function (err) {
+          // An error occured. Show a message to the user
+      });
+  }
+
+  $scope.uploadPhoto = function() {
+    var $input = angular.element(document.getElementById('upload'));
+    $input[0].click();
+    $input.on('change',function (e) {
+      var reader = new FileReader();
+      reader.onloadend = function (_e) {
+        //$scope.sary = _e;
+        var base64img = _e.target.result;
+        $scope.imgURI = base64img;
+      };
+      file = e.target.files[0];
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  $scope.upload = function() {
+    var config = {
+      apiKey: "AIzaSyDhFu4pZTdxxnzlAZTg27EhtwBnGESi1Gk",
+      authDomain: "logoquiz-8024d.firebaseapp.com",
+      databaseURL: "https://logoquiz-8024d.firebaseio.com",
+      projectId: "logoquiz-8024d",
+      storageBucket: "logoquiz-8024d.appspot.com",
+      messagingSenderId: "86530322073"
+    };
+    firebase.initializeApp(config);
+  
+    var storage = firebase.storage();
+
+    //var progress = document.getElementById('uploadProgress')
+    //var button = document.getElementById('uploadButton')
+    
+    var $input = angular.element(document.getElementById('uploadButton'));
+    $input[0].click();
+    $input.on('change',function (e) {
+    console.log('change')
+    var reader = new FileReader();
+    reader.onloadend = function (_e) {
+      console.log('tafiditra')
+      var base64img = _e.target.result;
+      $scope.imgURI = base64img;
+    };
+    file = e.target.files[0];
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+    //get file
+    /*var file = e.target.files[0];
+    var storageRef = storage.ref('photo/' + file.name)
+    $scope.filename = file.name
+    console.log('file name', $scope.filename)
+    var uploadTask = storageRef.put(file).then(function(){
+      var imgRef = storage.ref('photo/' + file.name)
+      console.log('file name',file.name)
+      imgRef.getDownloadURL().then(function(url){
+        console.log('url',url)
+        //$scope.url = url
+      })
+    })*/
+      
+    })
+  }
+
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -244,27 +355,31 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('essaiDetailQuiz', function($scope, $stateParams) {
-  $scope.idQuiz = $stateParams.idQuiz;
+.controller('essaiDetailQuiz', function($scope, $stateParams, $state ) {
+  window.location.reload();
+  console.log('eo ara oe!!');
+  /*$scope.idQuiz = $stateParams.idQuiz;
   $scope.idQuizPrec = parseInt($scope.idQuiz) - 1;
-  $scope.idQuizSuiv = parseInt($scope.idQuiz) + 1;
+  $scope.idQuizSuiv = parseInt($scope.idQuiz) + 1;*/
   $scope.quizz = [
     { photo: 'facebook1.png',reponse:'facebook' , id: 1 }
   ];
-  $scope.taille = $scope.quizz[0].reponse.length;
+  $state.go('app.jeu');
+  /*$scope.taille = $scope.quizz[0].reponse.length;
   $scope.tableaux = new Array($scope.taille);
   for (var i = 0; i < $scope.taille; i++) {
     $scope.tableaux[i] = i;
-  }
+  }*/
 })
 
-.controller('ListeNiveau', function($scope, $http, $stateParams) {
+.controller('ListeNiveau', function($scope, $http, $stateParams, $ionicLoading) {
   //$scope.idNiveau = $stateParams.id;
-  //console.log('joueur', $scope.idJoueur);
+  console.log('joueur listeniveau', $scope.idJoueur);
   console.log('count', $scope.count);
-  $http.get("https://quizlogo.herokuapp.com/niveau/listeNiveau").then(function(response){ 
+  $ionicLoading.show();
+  $http.get("https://quizlogo.herokuapp.com/niveau/listeNiveau?key="+$scope.idJoueur).then(function(response){ 
     $scope.niveaux = response.data;
-
+    $ionicLoading.hide();
     if ($scope.count < 5) {
       $scope.niveau2 = true;
     }
@@ -288,19 +403,22 @@ angular.module('starter.controllers', [])
   })
 })
 
-.controller('ListeQuizByNiveau', function($scope, $stateParams, $http) {
+.controller('ListeQuizByNiveau', function($scope, $stateParams, $http, $ionicLoading) {
+  $ionicLoading.show();
   $scope.idNiveau = $stateParams.id;
   $scope.pointQuiz = $stateParams.pointQuiz;
-  $http.get("https://quizlogo.herokuapp.com/quiz/find?idNiveau="+$scope.idNiveau).then(function(response){
+  $http.get("https://quizlogo.herokuapp.com/quiz/find?idNiveau="+$scope.idNiveau+"&key="+$scope.idJoueur).then(function(response){
     $scope.listeQuizz = response.data;
     $scope.idDebut = parseInt($scope.listeQuizz[0].id);
     $scope.idFin = $scope.idDebut + $scope.listeQuizz.length - 1;
+    $ionicLoading.hide();
     console.log('idDebut', $scope.idDebut);
     console.log('idFin', $scope.idFin);
   })
 })
 
-.controller('Quiz', function($scope, $stateParams, $http, $state) {
+.controller('Quiz', function($scope, $stateParams, $http, $state, $ionicLoading) {
+  $ionicLoading.show();
   $scope.idQuiz = parseInt($stateParams.idQuiz);
   $scope.idDebut = parseInt($stateParams.idDebut);
   $scope.idFin = parseInt($stateParams.idFin);
@@ -312,29 +430,54 @@ angular.module('starter.controllers', [])
   console.log('niveau', $scope.idNiveau);
   console.log('joueur', $scope.idJoueur);
   if ($scope.idQuiz < $scope.idDebut || $scope.idQuiz > $scope.idFin) {
+    $ionicLoading.hide();
     $state.go('app.listelogos', { id: $scope.idNiveau });
   }
   else {
-    $http.get("https://quizlogo.herokuapp.com/quiz/quiz?id="+$scope.idQuiz).then(function(response){
+    $http.get("https://quizlogo.herokuapp.com/quiz/quiz?id="+$scope.idQuiz+"&key="+$scope.idJoueur).then(function(response){
       $scope.quizz = response.data;
       $scope.reponse = $scope.quizz[0].reponse;
 
       //verification blocage quiz
-      $http.get("https://quizlogo.herokuapp.com/blocage/blocage?idJoueur="+$scope.idJoueur+"&idNiveau="+$scope.idNiveau+"&idQuiz="+$scope.idQuiz).then(function(response){
+      $http.get("https://quizlogo.herokuapp.com/blocage/blocage?idJoueur="+$scope.idJoueur+"&idNiveau="+$scope.idNiveau+"&idQuiz="+$scope.idQuiz+"&key="+$scope.idJoueur).then(function(response){
         console.log("tafiditra",response.data.length);
         if (response.data.length != 0) {
           $scope.input = true;
           $scope.bouton = true;
         }
+        $ionicLoading.hide();
       })
 
     })
   }
 })
 
-.controller('ListeClassement', function($scope, $http) {
-  $http.get("https://quizlogo.herokuapp.com/classement/classement").then(function(response){ 
+.controller('ListeClassement', function($scope, $http, $ionicLoading) {
+  $ionicLoading.show();
+  $http.get("https://quizlogo.herokuapp.com/classement/classement?key="+$scope.idJoueur).then(function(response){ 
     $scope.classements = response.data;
+    $ionicLoading.hide();
+  })
+})
+
+.controller('ListeCommentaire', function($scope, $http, $ionicLoading) {
+
+  /*var config = {
+    apiKey: "AIzaSyDhFu4pZTdxxnzlAZTg27EhtwBnGESi1Gk",
+    authDomain: "logoquiz-8024d.firebaseapp.com",
+    databaseURL: "https://logoquiz-8024d.firebaseio.com",
+    projectId: "logoquiz-8024d",
+    storageBucket: "logoquiz-8024d.appspot.com",
+    messagingSenderId: "86530322073"
+  };
+  firebase.initializeApp(config);
+
+  var storage = firebase.storage();*/
+
+  $ionicLoading.show();
+  $http.get("https://quizlogo.herokuapp.com/commentaire/find?key="+$scope.idJoueur).then(function(response){ 
+    $scope.commentaires = response.data;
+    $ionicLoading.hide();
   })
 })
 

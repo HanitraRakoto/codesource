@@ -11,7 +11,6 @@ import { AppRoutingModule } from './/app-routing.module';
 import { IndexcontenuComponent } from './indexcontenu/indexcontenu.component';
 import { GameComponent } from './game/game.component';
 import { ForumComponent } from './forum/forum.component';
-import { ContactComponent } from './contact/contact.component'; // <-- NgModel lives here
 import { LoginService } from '../services/login.service';
 import { InscriptionService } from '../services/inscription.service';
 import { CommentaireService } from '../services/commentaire.service';
@@ -27,7 +26,6 @@ import { UploadFormComponent } from './uploads/upload-form/upload-form.component
     IndexcontenuComponent,
     GameComponent,
     ForumComponent,
-    ContactComponent,
     UploadListComponent,
     UploadFormComponent
   ],

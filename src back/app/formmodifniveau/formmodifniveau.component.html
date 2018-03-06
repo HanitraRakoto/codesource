@@ -5,20 +5,24 @@
     <div class="col-sm-6 col-lg-6">
       <div id="register-wraper">
           <form id="register-form" class="form" method="post">
-              <legend>Modification Niveau {{id}}</legend>
+              <legend>Modification Niveau</legend>
       
-              <div class="body">
+              <div *ngFor="let niveau of niveaux" class="body">
                 <!-- name -->
               <label for="name">Nom du niveau</label>
+              {{niveau.nom}}
               <input [(ngModel)]="nom" name="nom" class="input-huge" type="text">
                 <!-- Icon quiz -->
               <label for="surname">Icon niveau</label>
+              {{niveau.icon}}
               <input [(ngModel)]="icon" name="icon" class="input-huge" type="text">
                 <!-- Point quiz -->
               <label for="surname">Point quiz</label>
+              {{niveau.pointQuiz}}
               <input [(ngModel)]="pointQuiz" name="pointQuiz" class="input-huge" type="text">
                 <!-- Point deblocage -->
                 <label>Point deblocage</label>
+                {{niveau.deblocage}}
                 <input [(ngModel)]="deblocage" name="deblocage" class="input-huge" type="text">
               </div>
           

@@ -4,6 +4,7 @@
 <div class="row">
 <div class="col-sm-12 col-lg-12">
   <h4><strong>Liste des niveaux</strong></h4>
+  <p align="right"><button routerLink="/forminsertniveau/{{idAdmin}}" class="btn-primary" type="button">Inserer niveau</button></p>
     <table class="display">
         <thead>
           <tr>
@@ -19,7 +20,7 @@
             <td>{{niveau.nom}}</td>
             <td>{{niveau.pointQuiz}}</td>
             <td>{{niveau.deblocage}}</td>
-            <td class="center"><button routerLink="/formmodifniveau/{{niveau.id}}" class="btn-primary" type="button">Modifier</button></td>
+            <td class="center"><button routerLink="/formmodifniveau/{{niveau.id}}/{{idAdmin}}" class="btn-primary" type="button">Modifier</button></td>
             <td class="center"><button (click)="deleteNiveau(niveau.id)" style="background-color:red; color:white" type="button">Supprimer</button></td>
           </tr>
         </tbody>
@@ -28,6 +29,7 @@
    <!--SECOND Table -->
 
 <h4><strong>Liste des quiz</strong></h4>
+<p align="right"><button routerLink="/forminsertquiz/{{idAdmin}}" class="btn-primary" type="button">Inserer quiz</button></p>
 
 <table class="display" id="dt1">
     <thead>
@@ -44,7 +46,7 @@
         <td>{{quiz.idNiveau}}</td>
         <td><img src="assets/images/{{quiz.photo}}" width="50px"></td>
         <td>{{quiz.reponse}}</td>
-        <td class="center"><button routerLink="/formmodifquiz/{{quiz.id}}" class="btn-primary" type="button">Modifier</button></td>
+        <td class="center"><button routerLink="/formmodifquiz/{{quiz.id}}/{{idAdmin}}" class="btn-primary" type="button">Modifier</button></td>
         <td class="center"><button (click)="deleteQuiz(quiz.id)" style="background-color:red; color:white" type="button">Supprimer</button></td>
       </tr>
     </tbody>

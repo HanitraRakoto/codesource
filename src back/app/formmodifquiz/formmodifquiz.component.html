@@ -11,14 +11,10 @@
                 <!-- first name -->
               <label for="name">Niveau</label>
               {{quiz.idNiveau}}
-              <!--select [(ngModel)]="idNiveau" class="select-huge" tabindex="-1" name="idNiveau">
-                
-                <option value="1">Niveau 1</option>
-                <option value="2">Niveau 2</option>
-                <option value="3">Niveau 3</option>
-                
-              </select>-->
-              <input [(ngModel)]="idNiveau" name="idNiveau" class="input-huge" type="text">
+              <select [(ngModel)]="idNiveau" class="select-huge" tabindex="-1" name="idNiveau">
+                <option *ngFor="let niveau of niveaux" value="{{niveau.id}}">{{niveau.nom}}</option>
+              </select>
+              <!--<input [(ngModel)]="idNiveau" name="idNiveau" class="input-huge" type="text">-->
               <br/>
                 <!-- last name -->
               <label for="surname">Photo</label>

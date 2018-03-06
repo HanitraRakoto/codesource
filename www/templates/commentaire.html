@@ -1,0 +1,48 @@
+<ion-view hide-nav-bar="true">
+    <ion-header-bar style="background-color:blueviolet">
+        <a href="#/app/niveau"><button class="button icon-left ion-chevron-left button-clear button-dark"></button></a>
+        <div class="h1 title">Commentaires</div>
+    </ion-header-bar>
+    
+    <ion-content>
+        
+        <div class="list card" ng-repeat="commentaire in commentaires">
+            <div class="item item-avatar">
+                <!--<img ng-src="{{commentaire.photo}}">-->
+                <h2>{{commentaire.nomJoueur}}</h2>
+            </div>
+            <div class="item item-body">
+                <p style="margin-top:0px">{{commentaire.valeur}}</p>
+            </div>
+        </div>
+
+        <form ng-submit="commenter()">
+            <label class="item item-input">
+                <textarea ng-model="commenter.valeur" placeholder="Votre commentaire..." style="height:100px"></textarea>
+            </label>
+            <div class="row responsive-sm">
+                <div class="col" style="margin-bottom:40px">
+                    <button class="button button-block button-royal" type="submit">Envoyer</button>
+                </div>
+            </div>
+        </form>
+        
+    </ion-content>
+
+    <div class="bar bar-footer">
+        <div class="tabs-striped">
+            <div class="tabs">
+                <a class="tab-item active" href="#/app/commentaire">
+                    <i class="icon ion-chatboxes"></i>
+                </a>
+                <a class="tab-item" href="#/app/information">
+                    <i class="icon ion-information"></i>
+                </a>
+                <a class="tab-item" href="#/app/jeu">
+                    <i class="icon ion-log-out"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</ion-view>

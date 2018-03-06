@@ -9,12 +9,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ForumComponent implements OnInit {
 
-  idJoueur: number;
+  //idJoueur: number;
+  idJoueur: string;
   commentaire: string;
   commentaires=new Array();
 
   constructor(public commentaireService: CommentaireService, private route: ActivatedRoute) {
-    this.idJoueur = parseInt(this.route.snapshot.paramMap.get('idJoueur'))
+    //this.idJoueur = parseInt(this.route.snapshot.paramMap.get('idJoueur'))
+    this.idJoueur = this.route.snapshot.paramMap.get('idJoueur')
     this.findCommentaire()
   }
 
@@ -22,7 +24,7 @@ export class ForumComponent implements OnInit {
   }
 
   findCommentaire(){
-    this.commentaireService.listeCommentaire()
+    this.commentaireService.listeCommentaire(this.idJoueur)
     .then(reponse => {
         console.log(reponse)
         this.commentaires = reponse
@@ -31,5 +33,6 @@ export class ForumComponent implements OnInit {
 
   insertCommentaire(){
     this.commentaireService.commenter(this.idJoueur, this.commentaire)
+    window.location.href = 'forum/'+this.idJoueur
   }
 }

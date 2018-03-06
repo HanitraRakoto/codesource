@@ -11,9 +11,27 @@
           <button ng-repeat="niveau in niveaux" ng-disabled="niveau{{niveau.id}}" ng-click="logos(niveau.id,niveau.pointQuiz)" class="button-full item item-avatar" style="text-align:left" href="#/app/listelogos/{{niveau.id}}/{{niveau.pointQuiz}}">
             <img src="img/{{niveau.icon}}">
             <h2>{{niveau.nom}}</h2>
-            <p>{{niveau.deblocage}} quiz pour debloquer</p>
+            <p>{{niveau.deblocage}} logo pour debloquer</p>
           </button>
       </div>
+      <br/><br/>
     
   </ion-content>
+
+  <div class="bar bar-footer">
+      <div class="tabs-striped">
+          <div class="tabs">
+            <a class="tab-item" href="#/app/commentaire">
+                <i class="icon ion-chatboxes"></i>
+            </a>
+            <a class="tab-item" href="#/app/information">
+                <i class="icon ion-information"></i>
+            </a>
+            <a class="tab-item" href="#/app/jeu">
+                <i class="icon ion-log-out"></i>
+            </a>
+          </div>
+      </div>
+  </div>
+
 </ion-view>

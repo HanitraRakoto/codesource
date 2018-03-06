@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     .then(reponse => {
       if(reponse.length != 0){
         console.log(reponse)
-        window.location.href = 'tables'
+        window.location.href = 'tables/'+reponse[0].id
       }else{
         console.log("diso")
       }

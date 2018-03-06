@@ -7,8 +7,8 @@ export class QuizService {
         
     }
 
-    public listeQuiz(){
-        const url = "https://quizlogo.herokuapp.com/quiz/listeQuiz"
+    public listeQuiz(idAdmin: string){
+        const url = "https://quizlogo.herokuapp.com/quiz/listeQuiz?key="+idAdmin
 
         return this.http.get(url)
         .toPromise()
@@ -16,8 +16,8 @@ export class QuizService {
         .catch(error => console.log(error));
     }
 
-    public listeQuizById(id: string){
-        const url = "https://quizlogo.herokuapp.com/quiz/quiz?id="+id
+    public listeQuizById(id: string, idAdmin: string){
+        const url = "https://quizlogo.herokuapp.com/quiz/quiz?id="+id+"&key="+idAdmin
 
         return this.http.get(url)
         .toPromise()
@@ -25,24 +25,24 @@ export class QuizService {
         .catch(error => console.log(error));
     }
 
-    public insererQuiz(idNiveau: number, photo: string, reponse: string) :void{
-        const url = "https://quizlogo.herokuapp.com/quiz/save?idNiveau="+idNiveau+"&photo="+photo+"&reponse="+reponse
+    public insererQuiz(idNiveau: number, photo: string, reponse: string, idAdmin: string) :void{
+        const url = "https://quizlogo.herokuapp.com/quiz/save?idNiveau="+idNiveau+"&photo="+photo+"&reponse="+reponse+"&key="+idAdmin
 
         this.http.get(url)
         .toPromise()
         .catch(error => console.log(error));
     }
 
-    public modifierQuiz(id: string, idNiveau: number, photo: string, reponse: string) :void{
-        const url = "https://quizlogo.herokuapp.com/quiz/update?id="+id+"&idNiveau="+idNiveau+"&photo="+photo+"&reponse="+reponse
+    public modifierQuiz(id: string, idNiveau: number, photo: string, reponse: string, idAdmin: string) :void{
+        const url = "https://quizlogo.herokuapp.com/quiz/update?id="+id+"&idNiveau="+idNiveau+"&photo="+photo+"&reponse="+reponse+"&key="+idAdmin
 
         this.http.get(url)
         .toPromise()
         .catch(error => console.log(error));
     }
 
-    public supprimerQuiz(id: string) :void{
-        const url = "https://quizlogo.herokuapp.com/quiz/delete?idQuiz="+id
+    public supprimerQuiz(id: string, idAdmin: string) :void{
+        const url = "https://quizlogo.herokuapp.com/quiz/delete?idQuiz="+id+"&key="+idAdmin
 
         this.http.get(url)
         .toPromise()

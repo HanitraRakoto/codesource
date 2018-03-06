@@ -4,14 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { IndexcontenuComponent } from './indexcontenu/indexcontenu.component';
 import { GameComponent } from './game/game.component';
 import { ForumComponent } from './forum/forum.component';
-import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   { path: 'index', component: IndexcontenuComponent },
   { path: 'game', component: GameComponent },
   { path: 'forum', component: ForumComponent },
-  { path: 'forum/:idJoueur', component: ForumComponent },
-  { path: 'contact', component: ContactComponent }
+  { path: 'forum/:idJoueur', component: ForumComponent }
 ];
 
 @NgModule({

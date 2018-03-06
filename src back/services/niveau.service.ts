@@ -7,8 +7,8 @@ export class NiveauService {
         
     }
 
-    public listeNiveau(){
-        const url = "https://quizlogo.herokuapp.com/niveau/listeNiveau"
+    public listeNiveau(idAdmin: string){
+        const url = "https://quizlogo.herokuapp.com/niveau/listeNiveau?key="+idAdmin
 
         return this.http.get(url)
         .toPromise()
@@ -16,8 +16,8 @@ export class NiveauService {
         .catch(error => console.log(error));
     }
 
-    public listeNiveauById(id: string){
-        const url = "https://quizlogo.herokuapp.com/niveau/findById?id="+id
+    public listeNiveauById(id: string, idAdmin: string){
+        const url = "https://quizlogo.herokuapp.com/niveau/findById?id="+id+"&key="+idAdmin
 
         return this.http.get(url)
         .toPromise()
@@ -25,24 +25,24 @@ export class NiveauService {
         .catch(error => console.log(error));
     }
 
-    public insererNiveau(nom: string, icon: string, pointQuiz: number, deblocage: number) :void{
-        const url = "https://quizlogo.herokuapp.com/niveau/save?nom="+nom+"&icon="+icon+"&pointQuiz="+pointQuiz+"&deblocage="+deblocage
+    public insererNiveau(nom: string, icon: string, pointQuiz: number, deblocage: number, idAdmin: string) :void{
+        const url = "https://quizlogo.herokuapp.com/niveau/save?nom="+nom+"&icon="+icon+"&pointQuiz="+pointQuiz+"&deblocage="+deblocage+"&key="+idAdmin
 
         this.http.get(url)
         .toPromise()
         .catch(error => console.log(error));
     }
 
-    public modifierNiveau(id: string, nom: string, icon: string, pointQuiz: number, deblocage: number) :void{
-        const url = "https://quizlogo.herokuapp.com/niveau/update?id="+id+"&nom="+nom+"&icon="+icon+"&pointQuiz="+pointQuiz+"&deblocage="+deblocage
+    public modifierNiveau(id: string, nom: string, icon: string, pointQuiz: number, deblocage: number, idAdmin: string) :void{
+        const url = "https://quizlogo.herokuapp.com/niveau/update?id="+id+"&nom="+nom+"&icon="+icon+"&pointQuiz="+pointQuiz+"&deblocage="+deblocage+"&key="+idAdmin
 
         this.http.get(url)
         .toPromise()
         .catch(error => console.log(error));
     }
 
-    public supprimerNiveau(id: string) :void{
-        const url = "https://quizlogo.herokuapp.com/niveau/delete?id="+id
+    public supprimerNiveau(id: string, idAdmin: string) :void{
+        const url = "https://quizlogo.herokuapp.com/niveau/delete?id="+id+"&key="+idAdmin
 
         this.http.get(url)
         .toPromise()

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NiveauService } from '../../services/niveau.service';
 import { QuizService } from '../../services/quiz.service';
 import { ClassementService } from '../../services/classement.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tables',
@@ -10,11 +11,13 @@ import { ClassementService } from '../../services/classement.service';
 })
 export class TablesComponent implements OnInit {
 
+  idAdmin : string;
   niveaux = new Array();
   quizz = new Array();
   classements = new Array();
 
-  constructor(public niveauService: NiveauService, public quizService: QuizService, public classementService: ClassementService ) {
+  constructor(public niveauService: NiveauService, public quizService: QuizService, public classementService: ClassementService, private route: ActivatedRoute) {
+    this.idAdmin = this.route.snapshot.paramMap.get('idAdmin')
     this.findNiveau()
     this.findQuiz()
     this.findClassement()
@@ -24,7 +27,7 @@ export class TablesComponent implements OnInit {
   }
 
   findNiveau(){
-    this.niveauService.listeNiveau()
+    this.niveauService.listeNiveau(this.idAdmin)
     .then(reponse => {
         console.log(reponse)
         this.niveaux = reponse
@@ -32,7 +35,7 @@ export class TablesComponent implements OnInit {
   }
 
   findQuiz(){
-    this.quizService.listeQuiz()
+    this.quizService.listeQuiz(this.idAdmin)
     .then(reponse => {
         console.log(reponse)
         this.quizz = reponse
@@ -40,7 +43,7 @@ export class TablesComponent implements OnInit {
   }
 
   findClassement(){
-    this.classementService.listeClassement()
+    this.classementService.listeClassement(this.idAdmin)
     .then(reponse => {
         console.log(reponse)
         this.classements = reponse
@@ -49,13 +52,13 @@ export class TablesComponent implements OnInit {
 
   deleteNiveau(idNiveau){
     console.log(idNiveau)
-    this.niveauService.supprimerNiveau(idNiveau)
-    window.location.href = 'tables'
+    this.niveauService.supprimerNiveau(idNiveau, this.idAdmin)
+    window.location.href = 'tables/'+this.idAdmin
   }
 
   deleteQuiz(idQuiz){
     console.log(idQuiz)
-    this.quizService.supprimerQuiz(idQuiz)
-    window.location.href = 'tables'
+    this.quizService.supprimerQuiz(idQuiz, this.idAdmin)
+    window.location.href = 'tables/'+this.idAdmin
   }
 }

@@ -11,11 +11,7 @@
                 <!-- first name -->
               <label for="name">Niveau</label>
               <select [(ngModel)]="idNiveau" class="select-huge" tabindex="-1" name="idNiveau">
-                
-                <option value="1">Niveau 1</option>
-                <option value="2">Niveau 2</option>
-                <option value="3">Niveau 3</option>
-                
+                <option *ngFor="let niveau of niveaux" value="{{niveau.id}}">{{niveau.nom}}</option>
               </select>
               <br/>
                 <!-- last name -->
